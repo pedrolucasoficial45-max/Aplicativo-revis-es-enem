@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Revisão Enem — protótipo</title>
+<style>
+:root{--bg:#EAF1FF;--sf:#fff;--ink:#0F1F4D;--mu:#5B6B94;--ln:#D3E0FA;--pr:#1D3FA0;--on:#fff;--ok:#1F9D5A;--bad:#E04B4B;--gd:#F5B301;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+
+
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#F7FAFF,#E3EDFF);color:var(--ink);font:17px/1.45 "Avenir Next","Segoe UI",system-ui,sans-serif}
+#app{max-width:520px;margin:0 auto;padding:16px 16px 100px;min-height:100vh}
+h1{font-size:1.7rem;line-height:1.15;margin:8px 0}h2{font-size:1.1rem;margin:22px 0 10px}
+button,input{font:inherit;color:inherit}
+button{border:0;cursor:pointer;border-radius:14px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--gd);outline-offset:2px}
+.hd{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-weight:700;font-size:1.15rem}
+.hd .bk{background:var(--sf);border:1px solid var(--ln);width:40px;height:40px}.hd .sp{flex:1}
+.mu{color:var(--mu);font-size:.92rem}
+.hero{background:radial-gradient(circle at 92% 8%,#CFE0FF 0 72px,transparent 73px),radial-gradient(circle at 78% 100%,#E3EDFF 0 60px,transparent 61px),#fff;color:var(--ink);border:1px solid var(--ln);border-radius:24px;padding:24px;box-shadow:0 14px 30px rgba(29,63,160,.12)}
+.hero p{margin:0 0 14px;opacity:.9}
+.bar{height:9px;background:#DCE8FF;border-radius:9px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--gd)}
+.big{width:100%;background:var(--pr);color:var(--on);padding:16px;font-weight:700;margin-top:14px}
+.tiles{display:grid;gap:10px}
+.tile{display:flex;gap:14px;align-items:center;background:var(--sf);border:1px solid var(--ln);padding:16px;text-align:left;width:100%}
+.tile i{font-style:normal;font-size:1.7rem}.tile b{display:block}
+.cvs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cv{position:relative;aspect-ratio:3/3.6;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:12px;text-align:center;overflow:hidden;background:repeating-radial-gradient(circle at 50% 36%,rgba(255,255,255,.17) 0 2px,transparent 2px 26px),linear-gradient(160deg,var(--c),color-mix(in srgb,var(--c) 68%,#000))}
+.cv i{position:absolute;top:14%;left:50%;transform:translateX(-50%);width:54%;aspect-ratio:3/4;background:#fff;border-radius:10px;display:grid;place-items:center;font-style:normal;color:var(--c);box-shadow:-9px 7px 0 -2px rgba(255,255,255,.35),0 10px 20px rgba(0,0,0,.25)}
+.cv small{opacity:.85;font-size:.78rem}.cv b{font-size:1.05rem;line-height:1.15}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;background:var(--sf);border:1px solid var(--ln);padding:16px;margin-bottom:10px;text-align:left}
+.chip{background:var(--bg);border-radius:20px;padding:2px 10px;font-size:.8rem;color:var(--mu);display:inline-block}
+.dk{display:block;width:100%;background:var(--sf);border:1px solid var(--ln);padding:20px;margin-bottom:12px;text-align:left;border-left:8px solid var(--pr)}
+.dk b{font-size:1.15rem}
+.fc{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:#fff;border:1px solid #C9D8F7;border-radius:22px;padding:40px 26px;min-height:340px;margin-bottom:26px;box-shadow:0 10px 0 -2px #1D3FA0,0 20px 0 -6px #142C73,0 28px 34px rgba(15,31,77,.25);touch-action:pan-y;user-select:none;cursor:pointer}.fc::before,.fc::after{content:attr(data-n);position:absolute;font-weight:800;color:var(--pr)}.fc::before{top:14px;left:18px}.fc::after{bottom:14px;right:18px;transform:rotate(180deg)}
+.lb{color:var(--mu);font-size:.85rem}.fc .q{font-size:1.25rem;font-weight:700;margin:8px 0}.fc hr{border:0;border-top:1px dashed var(--ln);margin:16px 0}.fc .an{font-size:1.3rem;font-weight:700;color:var(--pr);margin:6px 0}
+.prog{text-align:center;color:var(--mu);margin-bottom:12px}
+.two{display:flex;gap:12px;margin-top:26px}.two button{flex:1;padding:15px;font-weight:700;background:var(--sf);border:2px solid}
+.rv{border-color:var(--bad)!important;color:var(--bad)}.js{border-color:var(--ok)!important;color:var(--ok)}
+.hint{text-align:center;color:var(--mu);font-size:.85rem;margin-top:12px}
+.end{text-align:center;padding-top:40px}.end .tr{font-size:4.5rem}
+.chat{display:flex;flex-direction:column;gap:10px;min-height:52vh}
+.m{max-width:82%;padding:12px 14px;border-radius:16px}.m.b{background:var(--sf);border:1px solid var(--ln)}.m.u{background:var(--pr);color:var(--on);align-self:flex-end}
+.inp{display:flex;gap:8px;margin-top:14px}.inp input{flex:1;padding:13px;border-radius:14px;border:2px solid var(--ln);background:var(--sf)}.inp button{width:48px;background:var(--pr);color:var(--on)}
+.ov{position:fixed;inset:0;background:rgba(10,15,45,.93);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:30px;z-index:20}
+.orb{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#9DB0FF,#3B5BFF);animation:pl 1.6s ease-in-out infinite}
+@keyframes pl{50%{transform:scale(1.18)}}@media (prefers-reduced-motion:reduce){.orb{animation:none}}
+.qz{font-size:3.4rem;font-weight:800;text-align:center;background:var(--sf);border:1px solid var(--ln);border-radius:18px;padding:18px;margin:14px 0}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kp button{background:var(--sf);border:1px solid var(--ln);padding:15px;font-size:1.3rem;font-weight:700}
+.sts{display:flex;justify-content:space-between}
+label{font-weight:700;display:block;margin:14px 0 6px}.cf{width:100%;padding:13px;border:2px solid var(--ln);border-radius:12px;background:var(--sf)}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;display:flex;background:var(--sf);border-top:1px solid var(--ln);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;background:none;border-radius:0;padding:10px 2px;font-size:.78rem;color:var(--mu)}nav button i{display:block;font-style:normal;font-size:1.3rem}nav button.on{color:var(--pr);font-weight:700}
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:#14213D;color:#fff;padding:12px 16px;border-radius:12px;max-width:88%;z-index:30;display:none;font-size:.92rem}
+:root{color-scheme:light}
+.tile,.row{box-shadow:0 6px 16px rgba(29,63,160,.08)}
+.ti{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;color:#fff;background:linear-gradient(150deg,var(--c),color-mix(in srgb,var(--c) 62%,#000));flex:none}
+.ti svg{width:28px;height:28px}.cv i svg{width:58%;height:auto}
+nav button svg{width:24px;height:24px;display:block;margin:0 auto 2px}
+.fc hr{width:70%}.st .hd,.st .prog{color:#fff}.st .hd .bk{border-color:transparent}
+body.st{background-color:#3F6BFF;background-image:linear-gradient(180deg,rgba(234,241,255,0) 30%,#EAF1FF 92%),linear-gradient(45deg,rgba(255,255,255,.09) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.09) 75%),linear-gradient(45deg,rgba(255,255,255,.09) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.09) 75%);background-size:auto,90px 90px,90px 90px;background-position:0 0,0 0,45px 45px}
+.bn{display:flex;gap:18px;align-items:center;border-radius:22px;padding:26px 18px;background-color:#3F6BFF;background-image:linear-gradient(45deg,rgba(255,255,255,.09) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.09) 75%),linear-gradient(45deg,rgba(255,255,255,.09) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.09) 75%);background-size:70px 70px;background-position:0 0,35px 35px;box-shadow:0 14px 30px rgba(29,63,160,.22)}
+.stk{width:84px;height:108px;background:#fff;border-radius:12px;flex:none;box-shadow:0 9px 0 -2px #C9D8F7,0 18px 0 -6px #142C73}
+.dcs{display:flex;flex-direction:column;gap:12px;flex:1}.dc{background:#fff;border-radius:16px;padding:14px;text-align:left;display:flex;flex-direction:column;gap:6px;box-shadow:0 8px 16px rgba(15,31,77,.18)}.dc b{font-size:1.1rem}
+.ft{display:flex;justify-content:space-between;align-items:center}.go{width:32px;height:32px;border-radius:50%;border:1px solid var(--ln);display:grid;place-items:center;color:var(--pr);font-size:1.2rem}
+
+
+.seg{display:flex;gap:6px;background:#DCE8FF;border-radius:18px;padding:5px;margin:16px 0 8px}
+.seg button{flex:1;background:none;padding:9px 2px;font-weight:700;color:var(--mu);border-radius:14px;font-size:.9rem;line-height:1.2}
+.seg button small{font-weight:600;opacity:.85}
+.seg button.on{background:var(--pr);color:#fff;box-shadow:0 6px 14px rgba(29,63,160,.3)}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mc{background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:16px 14px;text-align:left;box-shadow:0 6px 16px rgba(29,63,160,.08);display:flex;flex-direction:column;gap:6px}
+.mc .ti{font-style:normal;font-size:1.9rem;font-weight:800}.mc b{font-size:1.05rem;margin-top:4px}
+.mc small{color:var(--mu);font-size:.76rem;line-height:1.25;min-height:2.4em}.mc .chip{align-self:flex-start}
+.mw{grid-column:1/3;width:100%;text-align:left;color:#fff;padding:20px 18px}
+
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.22)}100%{transform:scale(1)}}
+@keyframes wig{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg) scale(1.12)}75%{transform:rotate(12deg) scale(1.12)}}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}70%{transform:translateY(1px)}}
+@keyframes flip{0%,100%{transform:rotateY(0)}50%{transform:rotateY(90deg)}}
+@keyframes twk{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.25) rotate(25deg)}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}}
+svg{transform-origin:center}
+.hero{animation:up .5s backwards}
+.tile,.mc,.cv{transition:transform .2s,box-shadow .2s}
+.tile{border-radius:20px;padding:14px 16px;animation:up .45s backwards}
+.tile:nth-child(2){animation-delay:.07s}.tile:nth-child(3){animation-delay:.14s}.tile:nth-child(4){animation-delay:.21s}
+.tile .ti{width:60px;height:60px;border-radius:18px;box-shadow:0 8px 16px rgba(29,63,160,.25)}.tile .ti svg{width:30px;height:30px}
+.tile b{font-size:1.05rem}.tile>span:not(.go){flex:1}.tile .go{flex:none}
+.tile:hover,.mc:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(29,63,160,.16)}
+.tile:active,.mc:active{transform:scale(.97)}
+.cv{animation:up .45s calc(var(--d,0)*60ms) backwards}
+.cv:hover{transform:translateY(-4px) rotate(-1deg)}.cv:active{transform:scale(.96)}
+.cv i svg *,.tile .ti svg *{stroke-dasharray:1;animation:draw .9s calc(var(--d,0)*60ms + .25s) backwards}
+.cv:hover i svg{animation:wig .6s}
+.mc{animation:up .4s backwards}.mc:nth-child(2){animation-delay:.06s}.mc:nth-child(3){animation-delay:.12s}.mc:nth-child(4){animation-delay:.18s}.mc:nth-child(5){animation-delay:.24s}
+.mc:hover .ti{animation:pop .4s}
+.big,.row,.dk,.dc,.two button,.kp button{transition:transform .15s}
+.big:active,.row:active,.dk:active,.dc:active,.two button:active,.kp button:active{transform:scale(.96)}
+nav button svg{transition:transform .2s}
+nav button:active svg{transform:scale(.8)}
+nav button.on svg{animation:pop .5s .1s both}
+nav button.on svg *{stroke-dasharray:1;animation:draw .8s ease-out both}
+.tile:active .a-chat{animation:wig .6s}.tile:active .a-calc{animation:hop .5s}.tile:active .a-cards{animation:flip .6s}.tile:active .a-spark{animation:twk .6s}
+@media (hover:hover){
+nav button:hover .a-home *{stroke-dasharray:1;animation:draw .8s ease-out both}
+nav button:hover .a-chat,.tile:hover .a-chat{animation:wig .6s}
+nav button:hover .a-calc,.tile:hover .a-calc{animation:hop .5s}
+nav button:hover .a-cards,.tile:hover .a-cards{animation:flip .6s}
+nav button:hover .a-gear{transform:rotate(90deg)}
+.tile:hover .a-spark{animation:twk .6s}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div><div id="toast" role="status"></div>
+<nav id="nv"></nav>
+<script>
+const $=s=>document.querySelector(s);
+let xp=820,tab='home',iv=null,kh=null;
+const S=[['mat','Matemática','#4C6FFF','∑',['Fundamentos da Matemática','Razão, Proporção e Regra de Três','Porcentagem','Estatística e Análise de Dados']],['bio','Biologia','#2DBE5A','🧬',['Citologia','Genética','Ecologia']],['fis','Física','#F24B4B','⚛',['Cinemática','Eletricidade','Ondas']],['qui','Química','#9B5CF5','⚗',['Estequiometria','Soluções','Química Orgânica']],['his','História','#F59A0B','🏛',['Revolução Industrial','Brasil Colônia','Era Vargas']],['geo','Geografia','#12A9A0','🌍',['Clima e Vegetação','Urbanização','Geopolítica']],['lin','Linguagens','#FF9F1C','✎',['Interpretação de Texto','Figuras de Linguagem','Gêneros Textuais']],['fil','Filosofia','#E0661C','💭',['Ética','Filosofia Política','Teoria do Conhecimento']],['soc','Sociologia','#D9541A','👥',['Cultura e Identidade','Desigualdade Social','Trabalho e Sociedade']]];
+const D={'Porcentagem':{m:[['O que significa “por cento”?','Uma razão com denominador 100.'],['Como calcular 25% de um valor?','Multiplicar o valor por 0,25 (ou dividir por 4).'],['Como transformar 3/5 em porcentagem?','Dividir 3 por 5 (0,6) e multiplicar por 100: 60%.'],['Qual o fator de multiplicação de um aumento de 20%?','1,20.']],r:[['Um produto de R$ 200 sobe 10% e depois cai 10%. Quanto custa agora?','R$ 198, pois 200 × 1,10 × 0,90 = 198.'],['Numa turma de 40 alunos, 30% foram aprovados. Quantos foram reprovados?','28 alunos (70% de 40).'],['Um salário foi de R$ 1.500 para R$ 1.800. De quanto foi o aumento?','20%, pois 300 ÷ 1.500 = 0,20.']]},
+'Revolução Industrial':{m:[['Onde começou a Revolução Industrial?','Na Inglaterra, no século XVIII.'],['Qual foi a grande mudança na produção?','A passagem do trabalho artesanal para a produção mecanizada em fábricas.'],['Que fonte de energia moveu as primeiras máquinas?','O vapor, obtido do carvão mineral.'],['O que foi o movimento ludista?','Revolta de operários que quebravam máquinas, vendo nelas a causa do desemprego.']],r:[['Por que a Inglaterra saiu na frente na industrialização?','Tinha carvão e ferro, capital acumulado no comércio, mercado consumidor e mão de obra saída do campo.'],['Como a urbanização acelerada afetou os trabalhadores?','Moradias precárias, jornadas longas e pouca higiene, o que alimentou as lutas por direitos.']]}};
+
+const MD={gemini:'gemini-flash-lite-latest',anthropic:'claude-haiku-5-5',openai:'gpt-4o-mini'};
+const gc=()=>{try{return JSON.parse(localStorage.getItem('cfg')||'{}')}catch(e){return{}}};
+async function ai(h,sys,js){const c=gc(),p=c.p||'gemini',m=c.m||MD[p];if(!c.k)throw new Error('Cole sua chave em Config e toque em Salvar.');
+let u,H,b;
+if(p==='gemini'){u=`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`;H={'x-goog-api-key':c.k};b={systemInstruction:{parts:[{text:sys}]},contents:h.map(x=>({role:x.r==='user'?'user':'model',parts:[{text:x.t}]}))};if(js)b.generationConfig={responseMimeType:'application/json'}}
+else if(p==='anthropic'){u='https://api.anthropic.com/v1/messages';H={'x-api-key':c.k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};b={model:m,max_tokens:2000,system:sys,messages:h.map(x=>({role:x.r,content:x.t}))}}
+else{u='https://api.openai.com/v1/chat/completions';H={Authorization:'Bearer '+c.k};b={model:m,messages:[{role:'system',content:sys},...h.map(x=>({role:x.r,content:x.t}))]};if(js)b.response_format={type:'json_object'}}
+const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json',...H},body:JSON.stringify(b)}).catch(()=>{throw new Error('Sem conexão com a internet.')});
+const d=await r.json().catch(()=>({}));
+if(!r.ok){const e=d.error;throw new Error(String((e&&(e.message||e))||('Erro '+r.status)))}
+return p==='gemini'?d.candidates[0].content.parts.map(x=>x.text||'').join(''):p==='anthropic'?d.content.map(x=>x.text||'').join(''):d.choices[0].message.content}
+const nat=()=>{const C=window.Capacitor;return C&&C.isNativePlatform&&C.isNativePlatform()?C:null};
+async function listen(){const C=nat();
+if(C){const P=C.registerPlugin('SpeechRecognition');const pm=await P.requestPermissions();if(pm.speechRecognition!=='granted')throw new Error('Permita o microfone nas configurações do Android.');
+const r=await P.start({language:'pt-BR',maxResults:1,partialResults:false,popup:false});return(r.matches&&r.matches[0])||''}
+const W=window.SpeechRecognition||window.webkitSpeechRecognition;if(!W)throw new Error('Voz não disponível neste aparelho.');
+return new Promise((res,rej)=>{const r=new W();r.lang='pt-BR';r.onresult=e=>res(e.results[0][0].transcript);r.onerror=e=>rej(new Error(e.error));r.onend=()=>res('');r.start()})}
+async function speak(t){const C=nat();
+if(C){try{await C.registerPlugin('TextToSpeech').speak({text:t,lang:'pt-BR',rate:1,pitch:1,volume:1});return}catch(e){}}
+if(window.speechSynthesis)return new Promise(r=>{const u=new SpeechSynthesisUtterance(t);u.lang='pt-BR';u.onend=u.onerror=r;speechSynthesis.speak(u)})}
+function stopAll(){const C=nat();try{if(C){C.registerPlugin('SpeechRecognition').stop();C.registerPlugin('TextToSpeech').stop()}if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}}
+function mine(){let my=[];try{my=JSON.parse(localStorage.getItem('my')||'[]')}catch(e){}
+return `<h2>Meus assuntos</h2>`+my.map(t=>`<button class="row" onclick="topic('my','${t}')"><b>${t}</b><span>›</span></button>`).join('')+`<button class="row" style="border-style:dashed" onclick="gen('my')">+ Criar novo assunto com a IA</button>`}
+function gen(){page(hd('Criar assunto com a IA','central()')+`<label for="as">Qual assunto?</label><input class="cf" id="as" placeholder="Ex.: Leis de Newton"><button class="big" id="go">Gerar flashcards</button>`);
+const f=()=>{const t=$('#as').value.replace(/['"\\<>]/g,'').trim();if(t)gerar(t,'my')};$('#go').onclick=f;$('#as').onkeydown=e=>{if(e.key==='Enter')f()}}
+async function gerar(t,id){const bk=id==='my'?'central()':`subj('${id}')`;
+page(hd(t,bk)+`<div class="end"><div class="tr">⏳</div><h1>A IA está criando seus cards…</h1><p class="mu">Leva alguns segundos.</p></div>`);
+try{const r=await ai([{r:'user',t:'Assunto: '+t}],'Você cria flashcards de revisão para o Enem, em português do Brasil. Responda SOMENTE com JSON no formato {"m":[["pergunta","resposta"]],"r":[["pergunta","resposta"]]}. "m" tem 6 cards de memorização (fatos e conceitos, respostas curtas). "r" tem 4 cards de raciocínio, com questões curtas no estilo Enem e resposta explicada em 1 ou 2 frases. Sem markdown.',1);
+const j=JSON.parse(r.slice(r.indexOf('{'),r.lastIndexOf('}')+1));if(!j.m||!j.r||!j.m.length)throw new Error('A IA respondeu em formato inesperado. Tente de novo.');
+D[t]={m:j.m,r:j.r};const dk=JSON.parse(localStorage.getItem('decks')||'{}');dk[t]=D[t];localStorage.setItem('decks',JSON.stringify(dk));
+if(id==='my'){const my=JSON.parse(localStorage.getItem('my')||'[]');if(!my.includes(t)){my.push(t);localStorage.setItem('my',JSON.stringify(my))}}
+topic(id,t)}catch(e){const m=String(e.message||e).replace(/</g,'&lt;');
+page(hd(t,bk)+`<div class="end"><div class="tr">⚠️</div><h1>Não deu certo</h1><p class="mu">${m}</p><button class="big" onclick="gerar('${t}','${id}')">Tentar de novo</button><button class="big" style="background:var(--sf);color:var(--pr);border:2px solid var(--pr)" onclick="go('cfg')">Ir para Config</button></div>`)}}
+const lvl=()=>Math.floor(xp/250);
+const IC={home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',cards:'<rect x="3" y="6" width="13" height="15" rx="2"/><path d="M8 3h11a2 2 0 012 2v12"/>',chat:'<path d="M4 5h16v11H9l-5 4z"/>',calc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/>',spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',mat:'<rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor" fill-opacity=".14" stroke="none"/><path d="M6.5 8h11M10 8v7.5c0 1.4-.6 2.4-2 3M14.5 8v8c0 1.4.9 2.4 2.5 2.5" stroke-width="2.2"/><circle cx="17.5" cy="5.5" r="1.3" fill="currentColor" stroke="none"/><path d="M5 5.5h3M6.5 4v3" stroke-width="1.3" opacity=".7"/>',bio:'<path d="M7 3c0 4 10 5 10 9s-10 5-10 9" stroke-width="2.2"/><path d="M17 3c0 4-10 5-10 9s10 5 10 9" stroke-width="2.2" opacity=".55"/><path d="M8 4.3h8M9.3 6.2h5.4M9.2 9.8h5.6M7.7 12h8.6M9.4 14.2h5.2M8 19.7h8" stroke-width="1.4" opacity=".75"/>',fis:'<g stroke-width="1.5"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></g><circle cx="12" cy="12" r="4.2" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="12" cy="12" r="2.3" fill="currentColor" stroke="none"/><circle cx="22" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="7" cy="3.4" r="1.5" fill="currentColor" stroke="none"/><circle cx="7" cy="20.6" r="1.5" fill="currentColor" stroke="none"/>',qui:'<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3M7.5 15h9"/>',his:'<path d="M3 9l9-5 9 5zM5 9v9M10 9v9M14 9v9M19 9v9M3 20h18"/>',geo:'<circle cx="12" cy="12" r="9.2" fill="currentColor" fill-opacity=".14"/><path d="M7.5 8.5c1.2-2 3.2-2.6 4.2-1.6.8.8 0 2-1 2.6-.9.5-.7 1.6-1.6 2-.9.3-2.4-.6-1.6-3z" fill="currentColor" fill-opacity=".75" stroke="none"/><path d="M14 12.5c1.4-.6 3-.2 3.6.9.6 1.2-.3 2.6-1.6 3.1-1.2.4-2.3-.2-2.6-1.2-.3-1 0-2.2.6-2.8z" fill="currentColor" fill-opacity=".75" stroke="none"/><ellipse cx="12" cy="12" rx="4" ry="9.2" stroke-width="1.2" opacity=".6"/><path d="M3.2 12h17.6" stroke-width="1.2" opacity=".6"/>',lin:'<path d="M4 20l1-4L16 5l3 3L8 19zM14 7l3 3"/>',fil:'<path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10c1 1 1 2 1 3h6c0-1 0-2 1-3a6 6 0 00-4-10z"/>',soc:'<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6M15 14c3 0 6 1.5 6 5"/>'};
+const ic=(k,c='')=>`<svg class="${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${(IC[k]||'').replace(/<(path|rect|circle|ellipse)\b/g,'<$1 pathLength="1"')}</svg>`;
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(e.t);e.t=setTimeout(()=>e.style.display='none',3800)}
+function hd(t,b,x=''){return `<div class="hd">${b?`<button class="bk" onclick="${b}" aria-label="Voltar">←</button>`:''}<span class="sp">${t}</span>${x}</div>`}
+function page(h,st){clearInterval(iv);kh=null;document.body.className=st?'st':'';$('#app').innerHTML=h;scrollTo(0,0);
+$('#nv').innerHTML=[['home','home','Início'],['central','cards','Revisão'],['rad','chat','RAD'],['quiz','calc','Speed'],['cfg','gear','Config']].map(([k,i,n])=>`<button class="${tab===k?'on':''}" onclick="go('${k}')"><i>${ic(i,'a-'+i)}</i>${n}</button>`).join('')}
+onkeydown=e=>kh&&kh(e);
+function go(k){tab=k;({home,central,rad,quiz,cfg})[k]()}
+function home(){page(`<div class="hero"><h1>Bora continuar sua preparação?</h1><p>Você consegue!</p><div>Nível ${lvl()} · ${xp%250} / 250 XP</div><div class="bar"><i style="width:${(xp%250)/2.5}%"></i></div></div><h2>Atalhos</h2><div class="tiles">
+<button class="tile" onclick="central()"><i class="ti" style="--c:#F59A0B">${ic('cards','a-cards')}</i><span><b>Revisão</b><span class="mu">Flashcards de todas as matérias</span></span><span class="go">›</span></button>
+<button class="tile" onclick="go('rad')"><i class="ti" style="--c:#1D3FA0">${ic('chat','a-chat')}</i><span><b>RAD Interativo</b><span class="mu">Dê aula para a IA e converse sobre a matéria</span></span><span class="go">›</span></button>
+<button class="tile" onclick="go('quiz')"><i class="ti" style="--c:#3B82F6">${ic('calc','a-calc')}</i><span><b>Math Speed</b><span class="mu">Cálculo rápido, 100 níveis em cada operação</span></span><span class="go">›</span></button>
+<button class="tile" onclick="gen('my')"><i class="ti" style="--c:#9B5CF5">${ic('spark','a-spark')}</i><span><b>Criar assunto com a IA</b><span class="mu">Digite o tema e ganhe flashcards</span></span><span class="go">›</span></button></div>`)}
+function central(){tab='central';page(hd('Central de Revisão')+`<p class="mu" style="margin-top:-6px">Escolha uma matéria para revisar.</p><div class="cvs">${S.map((s,i)=>`<button class="cv" style="--c:${s[2]};--d:${i}" onclick="subj('${s[0]}')"><i>${ic(s[0])}</i><small>Flash cards de</small><b>${s[1]}</b></button>`).join('')}</div>`+mine())}
+function subj(id){const s=S.find(x=>x[0]===id);page(hd(s[1],'central()')+s[4].map(t=>`<button class="row" onclick="topic('${id}','${t}')"><span class="ti" style="--c:${s[2]}">${ic(id)}</span><span style="flex:1"><b>${t}</b><br><span class="chip">${D[t]?'2 baralhos':'A IA cria na hora'}</span></span><span>›</span></button>`).join('')+`<button class="row" style="border-style:dashed" onclick="gen('my')">+ Criar novo assunto com a IA</button>`)}
+function topic(id,t){if(!D[t]){gerar(t,id);return}
+const d=D[t];page(hd(t,id==='my'?'central()':`subj('${id}')`)+`<div class="bn"><div class="stk"></div><div class="dcs"><button class="dc" onclick="study('${t}','m')"><b>Memorização</b><span class="mu">Fatos e conceitos</span><span class="ft"><span class="chip">${d.m.length} cards</span><span class="go">›</span></span></button><button class="dc" onclick="study('${t}','r')"><b>Raciocínio</b><span class="mu">Questões estilo Enem</span><span class="ft"><span class="chip">${d.r.length} cards</span><span class="go">›</span></span></button></div></div>`)}
+function study(t,k){const all=D[t][k],q=all.map(c=>c.slice());let fl=0,ok=0,g=0;const back=`go('central')`;
+function r(){if(!q.length){xp+=g;return page(`<div class="end"><div class="tr">🏆</div><h1>Baralho concluído!</h1><p>Você ganhou <b>+${g} XP</b></p><button class="big" onclick="central()">Voltar à Central</button></div>`)}
+const c=q[0];page(hd(t,back)+`<div class="prog">${ok} de ${all.length} cards</div><div class="fc" id="fc" data-n="${ok+1}"><span class="lb">Pergunta</span><p class="q">${c[0]}</p>${fl?`<hr><span class="lb">Resposta</span><p class="an">${c[1]}</p>`:''}</div>`+(fl?`<div class="two"><button class="rv" id="rv">↻ Revisar</button><button class="js" id="js">✓ Já sei</button></div><p class="hint">Dica: deslize o card ou use as setas ← →</p>`:`<button class="big" id="vr">Ver resposta</button><p class="hint">ou toque no card · tecla Espaço</p>`),1);
+const flip=()=>{if(!fl){fl=1;r()}},know=()=>{ok++;g+=10;q.shift();fl=0;r()},again=()=>{q.push(q.shift());fl=0;r()};
+if(fl){$('#rv').onclick=again;$('#js').onclick=know}else $('#vr').onclick=flip;
+let x0=0;const f=$('#fc');f.onpointerdown=e=>x0=e.clientX;f.onpointerup=e=>{const d=e.clientX-x0;if(!fl){if(Math.abs(d)<10)flip()}else if(d>70)know();else if(d<-70)again()};
+kh=e=>{if(e.key===' '){e.preventDefault();flip()}else if(fl&&e.key==='ArrowRight')know();else if(fl&&e.key==='ArrowLeft')again()}}r()}
+function rad(){tab='rad';const SYS='Você é um colega de estudos e tutor do Enem. O aluno vai dar uma aula para você sobre um assunto. Faça perguntas, corrija erros com gentileza, complemente e conecte com o estilo do Enem. Responda em português do Brasil, em até 3 frases curtas, sem markdown, sem listas e sem emojis.';const H=[];let s=0,vm=false,fails=0;
+page(hd('RAD Interativo','',`<span class="chip" id="tm">00:00:00</span>`)+`<div class="chat" id="ch"><div class="m b">Oi! Escolha um assunto e me dê uma aula sobre ele. Eu vou perguntar, corrigir e trazer complementos.</div></div><div class="inp"><input id="mi" placeholder="Digite sua mensagem…"><button id="sd" aria-label="Enviar">➤</button><button id="mc" aria-label="Falar">🎙</button></div>`);
+iv=setInterval(()=>{s++;const e=$('#tm');if(e)e.textContent=[s/3600|0,s/60%60|0,s%60].map(v=>String(v).padStart(2,'0')).join(':')},1000);
+const add=(c,t)=>{const h=$('#ch');if(!h)return;const e=document.createElement('div');e.className='m '+c;e.textContent=t;h.appendChild(e);scrollTo(0,document.body.scrollHeight)};
+const ask=async t=>{H.push({r:'user',t});try{const a=(await ai(H,SYS)).trim();H.push({r:'assistant',t:a});return a}catch(e){H.pop();return 'Erro: '+e.message}};
+const send=async()=>{const i=$('#mi'),v=i.value.trim();if(!v)return;i.value='';add('u',v);add('b',await ask(v))};
+$('#sd').onclick=send;$('#mi').onkeydown=e=>{if(e.key==='Enter')send()};
+$('#mc').onclick=()=>{vm=true;fails=0;document.body.insertAdjacentHTML('beforeend',`<div class="ov" id="ov"><div class="orb"></div><b style="font-size:1.3rem" id="vs">Ouvindo…</b><span>Fale normalmente. A IA responde falando.</span><button class="big" id="ex" style="max-width:260px">Encerrar</button></div>`);
+$('#ex').onclick=()=>{vm=false;stopAll();$('#ov').remove()};
+(async()=>{const st=t=>{const e=$('#vs');if(e)e.textContent=t};
+while(vm&&$('#ov')){st('Ouvindo…');let t='';try{t=await listen();fails=0}catch(e){if(++fails>=3){st(e.message||'Não consegui ouvir.');vm=false;break}continue}
+if(!vm)break;if(!t.trim()){await new Promise(r=>setTimeout(r,300));continue}
+add('u',t);st('Pensando…');const a=await ask(t);if(!vm)break;add('b',a);st('Falando…');await speak(a)}})()}}
+const QO=[['s','Soma','+','#2DBE5A','do 3+7 ao 742+3497'],['b','Subtração','−','#F24B4B','do 9−4 ao troco encadeado'],['m','Multiplicação','×','#F59A0B','da tabuada ao 27×24'],['d','Divisão','÷','#4C6FFF','sempre exata, do 6÷2 ao 1932÷14']];
+const QM=[['tr','🌱','Tranquilo','15 segundos por conta.',15],['vel','⚡','Velocidade','10 segundos por conta.',10],['br','🔥','Brutal','5 segundos por conta.',5]];
+let qm='vel';
+const sm=m=>{qm=m;quiz()};
+const qj=()=>{try{return JSON.parse(localStorage.getItem('qp')||'{}')}catch(e){return{}}};
+const qget=k=>qj()[k]||1;
+const qput=(k,v)=>{try{const o=qj();o[k]=v;localStorage.setItem('qp',JSON.stringify(o))}catch(e){}};
+const rn=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+function qgen(o,L){const M=Math.floor(9+.35*(L-1)**2);
+if(o==='s'){const x=rn(2,M),y=rn(2,M);return[`${x} + ${y}`,x+y]}
+if(o==='b'){const x=rn(4,M),y=rn(2,x-1);if(L>60){const z=rn(2,Math.max(2,Math.floor((x-y)/2)));if(x-y-z>=0)return[`${x} − ${y} − ${z}`,x-y-z]}return[`${x} − ${y}`,x-y]}
+if(o==='m'){const a=rn(2,Math.min(27,Math.floor(3+L*.24))),b=rn(2,Math.min(24,Math.floor(3+L*.21)));return[`${a} × ${b}`,a*b]}
+const q=rn(2,Math.floor(3+L*1.4)),d=rn(2,Math.min(14,Math.floor(3+L*.11)));return[`${q*d} ÷ ${d}`,q]}
+function quiz(){tab='quiz';const md=QM.find(m=>m[0]===qm);
+page(hd('Math Speed')+`<div class="hero"><h1>Cálculo rápido ⚡</h1><p>Cada fase tem 10 contas. Acertou, vem a próxima. Errou ou o tempo acabou, volta ao início da fase.</p></div><div class="seg">${QM.map(m=>`<button class="${qm===m[0]?'on':''}" onclick="sm('${m[0]}')">${m[1]} ${m[2]}<br><small>${m[4]}s</small></button>`).join('')}</div><p class="mu" style="margin:0 0 14px;text-align:center">${md[3]} As contas ficam mais difíceis a cada nível.</p><div class="mg">${QO.map(o=>{const lv=qget(qm+o[0]);return `<button class="mc" onclick="qplay('${o[0]}')"><i class="ti" style="--c:${o[3]}">${o[2]}</i><b>${o[1]}</b><small>${o[4]}</small><div class="bar"><i style="width:${lv}%"></i></div><span class="chip">Nível ${lv}/100</span></button>`}).join('')}<button class="bn mw" onclick="qplay('x')"><i class="ti" style="--c:#142C73;width:64px;height:64px;font-size:2rem">☠️</i><span><b style="font-size:1.15rem">Sobrevivência</b><br><span style="font-size:.82rem">Errou, acabou. 20s por conta, as 4 operações misturadas até a #200.</span><br><span class="chip" style="margin-top:6px">Recorde: ${qj().rec||0}</span></span></button></div>`)}
+function qplay(o){const sv=o==='x',md=QM.find(m=>m[0]===qm),secs=sv?20:md[4],op=QO.find(x=>x[0]===o)||[],k=qm+o,tot=sv?200:10,L=sv?0:qget(k),nm=sv?'Sobrevivência':op[1];
+let n=0,a='',cur,t0,dn=0,lock=0;
+const sec='background:var(--sf);color:var(--pr);border:2px solid var(--pr)';
+const fail=w=>{lock=1;clearInterval(iv);const ans=`${cur[0]} = ${cur[1]}`;
+if(sv){const rec=qj().rec||0,nr=dn>rec;if(nr)qput('rec',dn);xp+=dn*5;page(`<div class="end"><div class="tr">☠️</div><h1>Fim de jogo</h1><p>Você acertou <b>${dn}</b> contas.${nr?' <b>Novo recorde!</b>':''}</p><p class="mu">${w==='tempo'?'Tempo esgotado. ':''}Era: ${ans}</p><button class="big" onclick="qplay('x')">Jogar de novo</button><button class="big" style="${sec}" onclick="quiz()">Voltar</button></div>`);return}
+page(`<div class="end"><div class="tr">${w==='tempo'?'⏱️':'❌'}</div><h1>${w==='tempo'?'Tempo esgotado':'Errou!'}</h1><p>Era: <b>${ans}</b></p><p class="mu">Você volta ao início do Nível ${L}.</p><button class="big" onclick="qplay('${o}')">Tentar de novo</button><button class="big" style="${sec}" onclick="quiz()">Voltar</button></div>`)};
+const win=()=>{xp+={tr:10,vel:20,br:40}[qm];qput(k,Math.max(qget(k),Math.min(100,L+1)));
+page(`<div class="end"><div class="tr">🏆</div><h1>Nível ${L} concluído!</h1><p class="mu">${L<100?'O próximo nível está liberado.':'Você zerou esta trilha!'}</p>${L<100?`<button class="big" onclick="qplay('${o}')">Próximo nível</button>`:''}<button class="big" style="${sec}" onclick="quiz()">Voltar</button></div>`)};
+const next=()=>{n++;if(!sv&&n>tot)return win();const oo=sv?QO[rn(0,3)][0]:o,lv=sv?Math.max(1,n/2):L;cur=qgen(oo,lv);a='';lock=0;t0=Date.now();
+$('#eq').textContent=cur[0];$('#an').textContent='';$('#pg').textContent=sv?'#'+n:n+'/'+tot;clearInterval(iv);
+iv=setInterval(()=>{const r=secs*1000-(Date.now()-t0);$('#tb').style.width=Math.max(0,r/secs/10)+'%';$('#tb').style.background=r<3000?'#E04B4B':'';$('#ts').textContent=Math.ceil(Math.max(0,r)/1000)+'s';if(r<=0)fail('tempo')},100)};
+const press=c=>{if(lock)return;if(c==='x')a=a.slice(0,-1);else if(c==='ok'){if(a==='')return;if(+a===cur[1]){dn++;return next()}return fail('errou')}else if(a.length<7)a+=c;$('#an').textContent=a};
+page(hd(nm,'quiz()','<span class="chip" id="pg"></span>')+`<div class="prog">${sv?'Até a #200':'Nível '+L+' de 100'} · <b id="ts"></b></div><div class="bar" style="background:rgba(255,255,255,.4);height:12px"><i id="tb" style="width:100%"></i></div><div class="qz" style="margin:18px 0"><div id="eq"></div><div id="an" style="color:var(--pr);min-height:1.3em;font-size:1.6rem"></div></div><div class="kp">${[1,2,3,4,5,6,7,8,9].map(n=>`<button data-k="${n}">${n}</button>`).join('')}<button data-k="x">⌫</button><button data-k="0">0</button><button data-k="ok" style="background:var(--gd);color:var(--ink)">Confirmar</button></div>`,1);
+document.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>press(b.dataset.k));
+kh=e=>{if(/^\d$/.test(e.key)){e.preventDefault();press(e.key)}else if(e.key==='Enter'){e.preventDefault();press('ok')}else if(e.key==='Backspace'){e.preventDefault();press('x')}};
+next()}
+function cfg(){const c=gc();page(hd('Configurações')+`<label for="pv">Serviço de IA</label><select class="cf" id="pv"><option value="gemini">Google Gemini</option><option value="anthropic">Claude (Anthropic)</option><option value="openai">OpenAI</option></select><label for="k">Chave da IA</label><input class="cf" id="k" type="password" placeholder="Cole aqui sua chave" autocomplete="off"><label for="m">Modelo</label><input class="cf" id="m"><span class="mu">A chave fica salva só neste aparelho.</span><button class="big" id="sv">Salvar</button><button class="big" id="ts" style="background:var(--sf);color:var(--pr);border:2px solid var(--pr)">Testar chave</button>`);
+$('#pv').value=c.p||'gemini';$('#k').value=c.k||'';$('#m').value=c.m||MD[c.p||'gemini'];
+$('#pv').onchange=()=>{$('#m').value=MD[$('#pv').value]};
+const save=()=>localStorage.setItem('cfg',JSON.stringify({p:$('#pv').value,k:$('#k').value.trim(),m:$('#m').value.trim()}));
+$('#sv').onclick=()=>{try{save();toast('Salvo neste aparelho ✓')}catch(e){toast('Não foi possível salvar.')}};
+$('#ts').onclick=async()=>{try{save()}catch(e){}toast('Testando…');try{await ai([{r:'user',t:'Diga só: ok'}],'Responda curto.');toast('Chave funcionando ✓')}catch(e){toast(e.message)}}}
+try{Object.assign(D,JSON.parse(localStorage.getItem('decks')||'{}'))}catch(e){}
+home();
+</script>
+</body>
+</html>
